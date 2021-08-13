@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity">
+
+    <FrameLayout
+        android:id="@+id/framelayout_answers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="160dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView_answer1"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+        <ImageView
+            android:id="@+id/imageView_answer2"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:mipmap/sym_def_app_icon"/>
+
+        <ImageView
+            android:id="@+id/imageView_answer3"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+        <ImageView
+            android:id="@+id/imageView_answer4"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+        <ImageView
+            android:id="@+id/imageView_player"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    </FrameLayout>
+</RelativeLayout>
