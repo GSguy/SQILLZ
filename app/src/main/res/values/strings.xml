@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SQILLZ</string>
+
+    <string name="login_button">Login</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="exit_button">Exit</string>
+
+    <string name="user_name_text">User Name</string>
+    <string name="password_text">Password</string>
+
 </resources>
