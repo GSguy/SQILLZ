@@ -3,6 +3,7 @@ package com.example.sqillz;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please fill the lines.",
                     Toast.LENGTH_SHORT).show();
         else
-            mAuth.signInWithEmailAndPassword(emailET.getText().toString(), passwordET.getText().toString())
+            mAuth.signInWithEmailAndPassword(emailET.getText().toString().trim(), passwordET.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -49,8 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "login ok.",
                                     Toast.LENGTH_SHORT).show();
-                        //    Intent intent = new Intent(MainActivity.this, ProfileView.class);
-                        //    startActivity(intent);
+                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "login failed.",
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
 
         else
-            mAuth.createUserWithEmailAndPassword(emailET.getText().toString(),passwordET.getText().toString())
+            mAuth.createUserWithEmailAndPassword(emailET.getText().toString().trim(),passwordET.getText().toString().trim())
                     .addOnCompleteListener(this, task -> {
                         if(task.isSuccessful()){
                             // Sign in success, update UI with the signed-in user's information

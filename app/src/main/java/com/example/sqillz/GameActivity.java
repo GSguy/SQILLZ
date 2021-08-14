@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class GameActivity extends AppCompatActivity {
     private Timer timer;
 
     // View args
-    private ImageView playerView, Car2, Car3, answerView1,answerView2,answerView3,answerView4,Coin,life0,life1,life2;
+    private ImageView playerView, Car2, Car3,Coin,life0,life1,life2;
+    private TextView answer1TV, answer2TV, answer3TV, answer4TV;
     private ImageButton Left,Right;
 
     // Position args
@@ -62,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public boolean checkAnswer(){
-        return isViewOverlapping(playerView, answerView1);
+        return isViewOverlapping(playerView, answer1TV);
     }
 
     private boolean isViewOverlapping(View firstView, View secondView) {
@@ -107,10 +109,10 @@ public class GameActivity extends AppCompatActivity {
 
     private void initViews(){
         playerView = findViewById(R.id.imageView_player);
-        answerView1 = findViewById(R.id.imageView_answer1);
-        answerView2 = findViewById(R.id.imageView_answer2);
-        answerView3 = findViewById(R.id.imageView_answer3);
-        answerView4 = findViewById(R.id.imageView_answer4);
+        answer1TV = findViewById(R.id.answer1TV);
+        answer2TV = findViewById(R.id.answer2TV);
+        answer3TV = findViewById(R.id.answer3TV);
+        answer4TV = findViewById(R.id.answer4TV);
     }
 
     private void setAnimation(){
@@ -138,21 +140,21 @@ public class GameActivity extends AppCompatActivity {
             }
         });
         animation.cancel();
-        answerView1.setAnimation(animation);
-        answerView2.setAnimation(animation);
-        answerView3.setAnimation(animation);
-        answerView4.setAnimation(animation);
+        answer1TV.setAnimation(animation);
+        answer2TV.setAnimation(animation);
+        answer3TV.setAnimation(animation);
+        answer4TV.setAnimation(animation);
     }
 
     public void setAnswers(){
-        answerView1.setX(laneOptions.get(0));
-        answerView1.setY(0);
-        answerView2.setX(laneOptions.get(1));
-        answerView2.setY(0);
-        answerView3.setX(laneOptions.get(2));
-        answerView3.setY(0);
-        answerView4.setX(laneOptions.get(3));
-        answerView4.setY(0);
+        answer1TV.setX(laneOptions.get(0));
+        answer1TV.setY(0);
+        answer2TV.setX(laneOptions.get(1));
+        answer2TV.setY(0);
+        answer3TV.setX(laneOptions.get(2));
+        answer3TV.setY(0);
+        answer4TV.setX(laneOptions.get(3));
+        answer4TV.setY(0);
 
         visibilityFlag = false;
         swapVisibility();
@@ -160,17 +162,17 @@ public class GameActivity extends AppCompatActivity {
 
     public void swapVisibility(){
         if(visibilityFlag) {
-            answerView1.setVisibility(View.INVISIBLE);
-            answerView2.setVisibility(View.INVISIBLE);
-            answerView3.setVisibility(View.INVISIBLE);
-            answerView4.setVisibility(View.INVISIBLE);
+            answer1TV.setVisibility(View.INVISIBLE);
+            answer2TV.setVisibility(View.INVISIBLE);
+            answer3TV.setVisibility(View.INVISIBLE);
+            answer4TV.setVisibility(View.INVISIBLE);
             visibilityFlag = false;
         }
         else {
-            answerView1.setVisibility(View.VISIBLE);
-            answerView2.setVisibility(View.VISIBLE);
-            answerView3.setVisibility(View.VISIBLE);
-            answerView4.setVisibility(View.VISIBLE);
+            answer1TV.setVisibility(View.VISIBLE);
+            answer2TV.setVisibility(View.VISIBLE);
+            answer3TV.setVisibility(View.VISIBLE);
+            answer4TV.setVisibility(View.VISIBLE);
             visibilityFlag = true;
         }
     }
