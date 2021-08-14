@@ -8,4 +8,17 @@
     <string name="user_name_text">Email</string>
     <string name="password_text">Password</string>
 
+    <string name="start_game_text">Start Game</string>
+    <string name="highest_scores_text">Highest Scores</string>
+    <string name="Logout_text">Logout</string>
+    <string name="difficulty_text">Difficulty:</string>
+    <string name="speed_text">Speed:</string>.
+    <string name="easy_text">Easy</string>
+    <string name="medium_text">Medium</string>
+    <string name="hard_text">Hard</string>
+    <string name="slow_text">Slow</string>
+    <string name="fast_text">Fast</string>
+    <string name="hello_user">Hello (user..)</string>
+
+
 </resources>
