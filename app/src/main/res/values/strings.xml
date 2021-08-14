@@ -20,5 +20,9 @@
     <string name="fast_text">Fast</string>
     <string name="hello_user">Hello (user..)</string>
 
+    <string name="pause_continue_text">pause/continue</string>
+    <string name="question_text">Question: </string>
+    <string name="score_text">Score: </string>
+
 
 </resources>
