@@ -35,4 +35,52 @@ public class LoginActivity extends AppCompatActivity {
         signupBTN.setOnClickListener(v -> regFunc(v));
         loginBTN.setOnClickListener(v -> loginFunc(v));
     }
+
+    public void loginFunc(View view) {
+        if (emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty())
+            Toast.makeText(LoginActivity.this, "Please fill the lines.",
+                    Toast.LENGTH_SHORT).show();
+        else
+            mAuth.signInWithEmailAndPassword(emailET.getText().toString(), passwordET.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(LoginActivity.this, "login ok.",
+                                    Toast.LENGTH_SHORT).show();
+                        //    Intent intent = new Intent(MainActivity.this, ProfileView.class);
+                        //    startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(LoginActivity.this, "login failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+    public void regFunc(View view){
+        if (emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty())
+            Toast.makeText( LoginActivity.this,"Please fill the lines.",
+                    Toast.LENGTH_SHORT).show();
+
+        else
+            mAuth.createUserWithEmailAndPassword(emailET.getText().toString(),passwordET.getText().toString())
+                    .addOnCompleteListener(this, task -> {
+                        if(task.isSuccessful()){
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText( LoginActivity.this,"REG ok.",
+                                    Toast.LENGTH_SHORT).show();
+                        //    Intent intent = new Intent( LoginActivity.this, ProfileView.class );
+                        //    startActivity( intent );
+                        }else{
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText( LoginActivity.this,"REG failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+    }
+
 }
