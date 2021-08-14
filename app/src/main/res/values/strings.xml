@@ -5,7 +5,7 @@
     <string name="sign_up_button">Sign Up</string>
     <string name="exit_button">Exit</string>
 
-    <string name="user_name_text">User Name</string>
+    <string name="user_name_text">Email</string>
     <string name="password_text">Password</string>
 
 </resources>

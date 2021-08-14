@@ -17,7 +17,8 @@
             android:id="@+id/imageView_answer1"
             android:layout_width="80dp"
             android:layout_height="70dp"
-            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+            android:layout_marginTop="160dp"
+            app:srcCompat="@drawable/circle" />
 
         <ImageView
             android:id="@+id/imageView_answer2"

@@ -64,6 +64,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean checkAnswer(){
         return isViewOverlapping(playerView, answerView1);
     }
+
     private boolean isViewOverlapping(View firstView, View secondView) {
         int[] firstPosition = new int[2];
         int[] secondPosition = new int[2];
