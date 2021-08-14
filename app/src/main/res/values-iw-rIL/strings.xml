@@ -20,4 +20,11 @@
     <string name="pause_continue_text">הפסק/המשך</string>
     <string name="question_text">שאלה</string>
     <string name="score_text">תוצאה</string>
+    <string name="play_again_button">שחק שוב</string>
+    <string name="main_menu_button">תפריט ראשי</string>
+    <string name="your_score_text">התוצאה שלך: </string>
+    <string name="your_place_text">המיקום שלך: </string>
+    <string name="highest_score_text">התוצאה הגבוהה ביותר: </string>
+
+
 </resources>

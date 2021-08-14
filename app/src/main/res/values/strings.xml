@@ -24,5 +24,10 @@
     <string name="question_text">Question: </string>
     <string name="score_text">Score: </string>
 
+    <string name="play_again_button">Play Again</string>
+    <string name="main_menu_button">Main Menu</string>
+    <string name="your_score_text">Your Score: </string>
+    <string name="your_place_text">Your Place: </string>
+    <string name="highest_score_text">Highest Score: </string>
 
 </resources>
