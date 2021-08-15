@@ -15,15 +15,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sqillz.logic.DifficultyEnum;
+import com.example.sqillz.logic.Game;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
 public class GameActivity extends AppCompatActivity {
 
+    // Game args
+    private Game game;
+
+    // general
     private Handler handler = new Handler();
     Vibrator vib;
     private Timer timer;
+    private FirebaseAuth mAuth;
 
     // View args
     private ImageView playerView, Car2, Car3,Coin,life0,life1,life2;
@@ -86,6 +95,9 @@ public class GameActivity extends AppCompatActivity {
 
     private void setGame(){
         score = 0;
+        mAuth = FirebaseAuth.getInstance();
+        String name = mAuth.getCurrentUser().getEmail().split("@")[0];
+        game = new Game(name, DifficultyEnum.EASY);
     }
 
     private void setViews(){
