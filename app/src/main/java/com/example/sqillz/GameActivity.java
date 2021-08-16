@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     // View args
     private ImageView playerView, Car2, Car3,Coin,life0,life1,life2;
     private TextView answer1TV, answer2TV, answer3TV, answer4TV;
+    private Button exitBTN, startBTN;
     private ImageButton Left,Right;
 
     // Position args
@@ -56,6 +58,7 @@ public class GameActivity extends AppCompatActivity {
     // flags
     private boolean player_move_right;
     private boolean start_flg = false;
+    private boolean pause_flg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,6 @@ public class GameActivity extends AppCompatActivity {
 
         // setup
         setViews();
-        setAnimation();
         setGame();
         setAnswers();
     }
@@ -94,6 +96,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setGame(){
+        this.start_flg = false;
         score = 0;
         mAuth = FirebaseAuth.getInstance();
         String name = mAuth.getCurrentUser().getEmail().split("@")[0];
@@ -117,6 +120,20 @@ public class GameActivity extends AppCompatActivity {
         playerX =  laneOptions.get(playerPosition);
         playerView.setX(playerX);
         playerView.setY((hight /10)*6);
+
+        exitBTN.setOnClickListener(v -> exitButtonClicked());
+        startBTN.setOnClickListener(v -> startButtonClicked());
+    }
+
+    private void startButtonClicked() {
+        if (!start_flg) {
+            Toast.makeText(GameActivity.this, "starting", Toast.LENGTH_SHORT).show();
+            this.start_flg = true;
+            setAnimation();
+        }
+    }
+
+    private void exitButtonClicked() {
     }
 
     private void initViews(){
@@ -125,13 +142,16 @@ public class GameActivity extends AppCompatActivity {
         answer2TV = findViewById(R.id.answer2TV);
         answer3TV = findViewById(R.id.answer3TV);
         answer4TV = findViewById(R.id.answer4TV);
+
+        exitBTN = findViewById(R.id.exitBTN);
+        startBTN = findViewById(R.id.startBTN);
     }
 
     private void setAnimation(){
         // Set Animation
         animation = AnimationUtils.loadAnimation(GameActivity.this, R.anim.top_down);
         animation.setDuration(1000);
-        animation.setFillAfter(true);
+        //animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -144,6 +164,8 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(GameActivity.this,"touch",Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(GameActivity.this,"miss",Toast.LENGTH_SHORT).show();
+
+                animation.start();
             }
 
             @Override
@@ -151,11 +173,10 @@ public class GameActivity extends AppCompatActivity {
 
             }
         });
-        animation.cancel();
-        answer1TV.setAnimation(animation);
-        answer2TV.setAnimation(animation);
-        answer3TV.setAnimation(animation);
-        answer4TV.setAnimation(animation);
+        answer1TV.startAnimation(animation);
+        answer2TV.startAnimation(animation);
+        answer3TV.startAnimation(animation);
+        answer4TV.startAnimation(animation);
     }
 
     public void setAnswers(){
@@ -168,25 +189,14 @@ public class GameActivity extends AppCompatActivity {
         answer4TV.setX(laneOptions.get(3));
         answer4TV.setY(0);
 
-        visibilityFlag = false;
-        swapVisibility();
+        setVisibility();
     }
 
-    public void swapVisibility(){
-        if(visibilityFlag) {
-            answer1TV.setVisibility(View.INVISIBLE);
-            answer2TV.setVisibility(View.INVISIBLE);
-            answer3TV.setVisibility(View.INVISIBLE);
-            answer4TV.setVisibility(View.INVISIBLE);
-            visibilityFlag = false;
-        }
-        else {
-            answer1TV.setVisibility(View.VISIBLE);
-            answer2TV.setVisibility(View.VISIBLE);
-            answer3TV.setVisibility(View.VISIBLE);
-            answer4TV.setVisibility(View.VISIBLE);
-            visibilityFlag = true;
-        }
+    public void setVisibility(){
+        answer1TV.setVisibility(View.VISIBLE);
+        answer2TV.setVisibility(View.VISIBLE);
+        answer3TV.setVisibility(View.VISIBLE);
+        answer4TV.setVisibility(View.VISIBLE);
     }
     public void changePos() {
         //Move Car

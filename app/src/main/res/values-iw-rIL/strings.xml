@@ -17,7 +17,7 @@
     <string name="slow_text">איטי</string>
     <string name="fast_text">מהיר</string>
     <string name="hello_user">שלום משתמש</string>
-    <string name="pause_continue_text">הפסק/המשך</string>
+    <string name="pause_continue_text">התחל</string>
     <string name="question_text">שאלה</string>
     <string name="score_text">תוצאה</string>
     <string name="play_again_button">שחק שוב</string>
