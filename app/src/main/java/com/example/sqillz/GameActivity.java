@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.view.Display;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,7 +28,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener  {
 
     // Game args
     private Game game;
@@ -53,6 +55,10 @@ public class GameActivity extends AppCompatActivity {
     // flags
     private boolean start_flg = false;
 
+    // swipe gesture args
+    private float x1, x2;
+    private GestureDetector gestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,7 @@ public class GameActivity extends AppCompatActivity {
 
         // init
         initViews();
+        gestureDetector = new GestureDetector(GameActivity.this,this);
 
         // setup
         setViews();
@@ -111,7 +118,7 @@ public class GameActivity extends AppCompatActivity {
         vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         playerPosition = 2;
-        playerX =  laneOptions.get(playerPosition);
+        playerX = laneOptions.get(playerPosition);
         playerView.setX(playerX);
         playerView.setY((hight /10)*6);
 
@@ -188,7 +195,7 @@ public class GameActivity extends AppCompatActivity {
     private void setAnimation(){
         // Set Animation
         animation = AnimationUtils.loadAnimation(GameActivity.this, R.anim.top_down);
-        animation.setDuration(1000);
+        animation.setDuration(4000);
         //animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -236,12 +243,71 @@ public class GameActivity extends AppCompatActivity {
         answer3TV.setVisibility(View.VISIBLE);
         answer4TV.setVisibility(View.VISIBLE);
     }
-//    public void changePos() {
-//        //Move Car
-//        if (player_move_right)
-//            playerPosition = (playerPosition + 1) % 4;
-//        else
-//            playerPosition = (playerPosition - 1) % 4;
-//
-//    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+       gestureDetector.onTouchEvent(event);
+
+       switch (event.getAction()){
+           case MotionEvent.ACTION_DOWN:
+               x1 = event.getX();
+               break;
+           case MotionEvent.ACTION_UP:
+               x2 = event.getX();
+
+               float valueX = x2 - x1;
+               if(Math.abs(valueX) > 100){
+                   if(x2>x1) {
+                       changePos(false);
+                       Toast.makeText(GameActivity.this,"right",Toast.LENGTH_SHORT).show();
+                   }
+                   else {
+                       changePos(true);
+                       Toast.makeText(GameActivity.this,"left",Toast.LENGTH_SHORT).show();
+                   }
+               }
+               break;
+       }
+       return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
+
+    public void changePos(boolean swipedLeft) {
+        //Move Car
+        if (swipedLeft)
+            playerPosition = (playerPosition - 1) % 4;
+        else
+            playerPosition = (playerPosition + 1) % 4;
+
+        playerView.setX(laneOptions.get(playerPosition));
+    }
 }
