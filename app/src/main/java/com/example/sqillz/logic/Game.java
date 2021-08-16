@@ -3,6 +3,7 @@ package com.example.sqillz.logic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Game {
     private String user;
@@ -11,6 +12,7 @@ public class Game {
     private ArrayList<Question> easy_questions;
     private ArrayList<Question> med_questions;
     private ArrayList<Question> hard_questions;
+    private ArrayList<Integer> used_questions;
     private ArrayList<Answer> answers;
     private Map<String, Integer> highscore;
 
@@ -21,6 +23,7 @@ public class Game {
         this.easy_questions = new ArrayList<>();
         this.med_questions = new ArrayList<>();
         this.hard_questions = new ArrayList<>();
+        this.used_questions = new ArrayList<>();
         this.answers = new ArrayList<>();
         setQNA();
         loadHighscore();
@@ -96,5 +99,36 @@ public class Game {
 
     private boolean is_score_in_highscore(){
         return false;
+    }
+
+    public Question getNextQuestion() {
+        ArrayList<Question> current = getCurrentDifficultyList();
+        if (used_questions.size() >= current.size()){
+            used_questions = new ArrayList<>();
+        }
+        int index;
+        do {
+            Random rnd = new Random();
+            index = rnd.nextInt(current.size());
+        }while (used_questions.contains(index));
+        used_questions.add(index);
+        return current.get(index);
+    }
+
+    private ArrayList<Question> getCurrentDifficultyList() {
+        switch (difficulty){
+            case EASY:
+                return easy_questions;
+            case MEDIUM:
+                return med_questions;
+            case HARD:
+                return hard_questions;
+            default:
+                return null;
+        }
+    }
+
+    public int getScore() {
+        return this.score;
     }
 }

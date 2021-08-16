@@ -18,47 +18,40 @@ import android.widget.Toast;
 
 import com.example.sqillz.logic.DifficultyEnum;
 import com.example.sqillz.logic.Game;
+import com.example.sqillz.logic.Question;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 
 public class GameActivity extends AppCompatActivity {
 
     // Game args
     private Game game;
+    private TextView selectedTV;
 
     // general
     private Handler handler = new Handler();
-    Vibrator vib;
+    private Vibrator vib;
     private Timer timer;
     private FirebaseAuth mAuth;
+    private int width, hight;
 
     // View args
-    private ImageView playerView, Car2, Car3,Coin,life0,life1,life2;
-    private TextView answer1TV, answer2TV, answer3TV, answer4TV;
+    private ImageView playerView;
+    private TextView answer1TV, answer2TV, answer3TV, answer4TV, scoreTV, questionTV;
     private Button exitBTN, startBTN;
-    private ImageButton Left,Right;
 
     // Position args
     private Animation animation;
-    private float zombieY;
-    private int playerPosition, zombieX, zombie2X, zombie3X, zombie4X,  coinX, zombieAndCoinSpeed;
+    private int playerPosition;
     private float playerX;
-    private boolean visibilityFlag;
-    private long posPeriod = 20;
     private List<Integer> laneOptions = new ArrayList<>();
 
-    // Speed args
-    private String speed;
-
-    private int lifeNum, score, distance = 0, hit_resize = 35, width, hight;
-
     // flags
-    private boolean player_move_right;
     private boolean start_flg = false;
-    private boolean pause_flg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public boolean checkAnswer(){
-        return isViewOverlapping(playerView, answer1TV);
+        return isViewOverlapping(playerView, selectedTV);
     }
 
     private boolean isViewOverlapping(View firstView, View secondView) {
@@ -97,10 +90,11 @@ public class GameActivity extends AppCompatActivity {
 
     private void setGame(){
         this.start_flg = false;
-        score = 0;
         mAuth = FirebaseAuth.getInstance();
         String name = mAuth.getCurrentUser().getEmail().split("@")[0];
         game = new Game(name, DifficultyEnum.EASY);
+
+        scoreTV.setText(String.format("%s %d",this.getResources().getString(R.string.score_text), game.getScore()));
     }
 
     private void setViews(){
@@ -127,9 +121,50 @@ public class GameActivity extends AppCompatActivity {
 
     private void startButtonClicked() {
         if (!start_flg) {
-            Toast.makeText(GameActivity.this, "starting", Toast.LENGTH_SHORT).show();
             this.start_flg = true;
+            setNextQuestion();
             setAnimation();
+        }
+    }
+
+    private void setNextQuestion() {
+        Question question = game.getNextQuestion();
+        questionTV.setText(String.format("%s %s",this.getResources().getString(R.string.question_text), question.getQuestion()));
+
+        setNextAnswers(question.getPosAnswers());
+    }
+
+    private void setNextAnswers(int[] answers){
+        Random rnd = new Random();
+        switch (rnd.nextInt(4)){
+            case 0:
+                answer1TV.setText(Integer.toString(answers[0]));
+                answer2TV.setText(Integer.toString(answers[1]));
+                answer3TV.setText(Integer.toString(answers[2]));
+                answer4TV.setText(Integer.toString(answers[3]));
+                selectedTV = answer1TV;
+                break;
+            case 1:
+                answer1TV.setText(Integer.toString(answers[1]));
+                answer2TV.setText(Integer.toString(answers[0]));
+                answer3TV.setText(Integer.toString(answers[2]));
+                answer4TV.setText(Integer.toString(answers[3]));
+                selectedTV = answer2TV;
+                break;
+            case 2:
+                answer1TV.setText(Integer.toString(answers[1]));
+                answer2TV.setText(Integer.toString(answers[2]));
+                answer3TV.setText(Integer.toString(answers[0]));
+                answer4TV.setText(Integer.toString(answers[3]));
+                selectedTV = answer3TV;
+                break;
+            case 3:
+                answer1TV.setText(Integer.toString(answers[1]));
+                answer2TV.setText(Integer.toString(answers[2]));
+                answer3TV.setText(Integer.toString(answers[3]));
+                answer4TV.setText(Integer.toString(answers[0]));
+                selectedTV = answer4TV;
+                break;
         }
     }
 
@@ -142,6 +177,9 @@ public class GameActivity extends AppCompatActivity {
         answer2TV = findViewById(R.id.answer2TV);
         answer3TV = findViewById(R.id.answer3TV);
         answer4TV = findViewById(R.id.answer4TV);
+
+        questionTV = findViewById(R.id.questionTV);
+        scoreTV = findViewById(R.id.scoreTV);
 
         exitBTN = findViewById(R.id.exitBTN);
         startBTN = findViewById(R.id.startBTN);
@@ -198,12 +236,12 @@ public class GameActivity extends AppCompatActivity {
         answer3TV.setVisibility(View.VISIBLE);
         answer4TV.setVisibility(View.VISIBLE);
     }
-    public void changePos() {
-        //Move Car
-        if (player_move_right)
-            playerPosition = (playerPosition + 1) % 4;
-        else
-            playerPosition = (playerPosition - 1) % 4;
-
-    }
+//    public void changePos() {
+//        //Move Car
+//        if (player_move_right)
+//            playerPosition = (playerPosition + 1) % 4;
+//        else
+//            playerPosition = (playerPosition - 1) % 4;
+//
+//    }
 }

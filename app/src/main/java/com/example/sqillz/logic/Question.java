@@ -27,4 +27,8 @@ public class Question {
 
         return pa;
     }
+
+    public String getQuestion() {
+        return this.question;
+    }
 }
