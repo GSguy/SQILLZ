@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-//import com.google.gson.Gson;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.example.sqillz.logic.Utils;
-
-
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -55,7 +53,7 @@ public class HighScoresFragment extends Fragment {
         backBtn  = viewReference.findViewById(R.id.back_btn);
         backBtn.setOnClickListener(v -> closeHighestScoreFragment());
 
-//        loadHighestScoresFromFile();
+        loadHighestScoresFromFile();
 
         return this.viewReference;
     }
@@ -71,9 +69,9 @@ public class HighScoresFragment extends Fragment {
         SharedPreferences sharedPref = contextReference.getSharedPreferences(filename,Context.MODE_PRIVATE);
         String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
                 Utils.getJsonFromAssets(contextReference, "template_scores_json.json"));
-//        Gson gson = new Gson();
-//        Type listScoreType = new TypeToken<List<Score>>() {}.getType();
-//        scores = gson.fromJson(jsonFileString, listScoreType);
+        Gson gson = new Gson();
+        Type listScoreType = new TypeToken<List<Integer>>() {}.getType();
+        scores = gson.fromJson(jsonFileString, listScoreType);
     }
 
 

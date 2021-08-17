@@ -1,5 +1,6 @@
 package com.example.sqillz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +36,12 @@ public class MenuActivity extends AppCompatActivity {
         logOutBtn = findViewById(R.id.logOutBtn);
 
         highestScoresBtn.setOnClickListener(v -> openHighestScoresFragment());
+        startGameBtn.setOnClickListener(v-> startFame());
+    }
 
+    private void startFame() {
+        Intent intent = new Intent(MenuActivity.this, GameActivity.class);
+        startActivity(intent);
     }
 
     private void openHighestScoresFragment() {
