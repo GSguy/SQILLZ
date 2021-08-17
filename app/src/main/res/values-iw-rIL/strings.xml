@@ -26,6 +26,7 @@
     <string name="your_place_text">המיקום שלך: </string>
     <string name="highest_score_text">התוצאה הגבוהה ביותר: </string>
     <string name="score_tag">playerscoretag</string>
+    <string name="gameover_text">סוף משחק</string>
 
 
 </resources>

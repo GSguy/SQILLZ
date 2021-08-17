@@ -221,7 +221,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                 else {
                     // Game Over
                     Intent myIntent = new Intent(GameActivity.this, ScoreActivity.class);
-                    myIntent.putExtra(""+String.format("%d", R.string.score_tag), ""+game.getScore());
+                    myIntent.putExtra(GameActivity.this.getResources().getString(R.string.score_tag), ""+game.getScore());
                     startActivity(myIntent);
                 }
             }

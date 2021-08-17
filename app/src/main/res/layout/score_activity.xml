@@ -12,75 +12,98 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button3"
+        <TextView
+            android:id="@+id/gameoverTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="300dp"
-            android:text="@string/play_again_button"
+            android:layout_marginTop="80dp"
+            android:alpha="1"
+            android:text="@string/gameover_text"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/scoreEndTV"
+            android:layout_width="323dp"
+            android:layout_height="42dp"
+            android:background="#F19918"
+            android:text="@string/your_score_text"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:alpha="0.65"
+            android:layout_marginTop="55dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameoverTV" />
+
+        <TextView
+            android:id="@+id/placeEndTV"
+            android:layout_width="323dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="0dp"
+            android:background="#F19918"
+            android:text="@string/your_place_text"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:alpha="0.65"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scoreEndTV" />
+
+        <TextView
+            android:id="@+id/highscoreEndTV"
+            android:layout_width="323dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="0dp"
+            android:background="#F19918"
+            android:text="@string/highest_score_text"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:alpha="0.65"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placeEndTV" />
+
         <Button
-            android:id="@+id/button"
+            android:id="@+id/rerunBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="72dp"
-            android:layout_marginTop="368dp"
+            android:text="@string/play_again_button"
+            android:layout_marginTop="70dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/highscoreEndTV" />
+
+        <Button
+            android:id="@+id/menuBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="25dp"
             android:text="@string/main_menu_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/rerunBTN" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="136dp"
             android:layout_height="138dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="44dp"
             android:contentDescription="@string/user_name_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintStart_toEndOf="@+id/rerunBTN"
+            app:layout_constraintTop_toBottomOf="@+id/highscoreEndTV"
             app:srcCompat="@drawable/user_character" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="323dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="16dp"
-            android:background="#27D"
-            android:text="@string/your_place_text"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="323dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="66dp"
-            android:background="#27D"
-            android:text="@string/your_score_text"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="323dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="22dp"
-            android:background="#27D"
-            android:text="@string/highest_score_text"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
