@@ -33,4 +33,11 @@
 
     <string name="score_tag">playerscoretag</string>
 
+    <string name="place_text">Place</string>
+    <string name="name_text">Name</string>
+    <string name="back_button">Back</string>
+
+    <string name="Scores_Json_File">Scores_Json_File</string>
+    <string name="Scores_Json_String">Scores_Json_String</string>
+
 </resources>

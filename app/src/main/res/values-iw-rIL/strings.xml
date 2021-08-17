@@ -25,6 +25,12 @@
     <string name="your_score_text">התוצאה שלך: </string>
     <string name="your_place_text">המיקום שלך: </string>
     <string name="highest_score_text">התוצאה הגבוהה ביותר: </string>
+    <string name="place_text">מיקום</string>
+    <string name="name_text">שם</string>
+    <string name="back_button">אחורה</string>
+    <string name="Scores_Json_File">Scores_Json_File</string>
+    <string name="Scores_Json_String">Scores_Json_String</string>
+
     <string name="score_tag">playerscoretag</string>
     <string name="gameover_text">סוף משחק</string>
 

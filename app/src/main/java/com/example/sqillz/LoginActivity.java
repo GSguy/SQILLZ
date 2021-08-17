@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email, password;
     private EditText emailET, passwordET;
-    private Button loginBTN, signupBTN;
+    private Button loginBTN, signupBTN, exitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,18 @@ public class LoginActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordET);
         loginBTN = findViewById(R.id.loginBTN);
         signupBTN = findViewById(R.id.signupBTN);
+        exitBtn = findViewById(R.id.exitBTN);
 
         mAuth = FirebaseAuth.getInstance();
 
         signupBTN.setOnClickListener(v -> regFunc(v));
         loginBTN.setOnClickListener(v -> loginFunc(v));
+        exitBtn.setOnClickListener(v -> exitFromApp());
+    }
+
+    private void exitFromApp() {
+        finish();
+        System.exit(0);
     }
 
     public void loginFunc(View view) {
@@ -50,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "login ok.",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, GameActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
