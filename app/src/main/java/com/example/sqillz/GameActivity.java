@@ -2,6 +2,7 @@ package com.example.sqillz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,7 +72,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         // setup
         setViews();
         setGame();
-        setAnswers();
+        setAnswersView();
     }
 
     public boolean checkAnswer(){
@@ -99,8 +100,12 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         this.start_flg = false;
         mAuth = FirebaseAuth.getInstance();
         String name = mAuth.getCurrentUser().getEmail().split("@")[0];
-        game = new Game(name, DifficultyEnum.EASY);
+        game = new Game(name, DifficultyEnum.MEDIUM);
 
+        setScoreView();
+    }
+
+    private void setScoreView(){
         scoreTV.setText(String.format("%s %d",this.getResources().getString(R.string.score_text), game.getScore()));
     }
 
@@ -135,8 +140,9 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     private void setNextQuestion() {
+        setScoreView();
         Question question = game.getNextQuestion();
-        questionTV.setText(String.format("%s %s",this.getResources().getString(R.string.question_text), question.getQuestion()));
+        questionTV.setText(String.format("%s",question.getQuestion()));
 
         setNextAnswers(question.getPosAnswers());
     }
@@ -205,12 +211,19 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(checkAnswer())
-                    Toast.makeText(GameActivity.this,"touch",Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(GameActivity.this,"miss",Toast.LENGTH_SHORT).show();
-
-                animation.start();
+                if(checkAnswer()) {
+                    // Round Won
+                    game.roundWon();
+                    setNextQuestion();
+                    setAnswersView();
+                    setAnimation();
+                }
+                else {
+                    // Game Over
+                    Intent myIntent = new Intent(GameActivity.this, ScoreActivity.class);
+                    myIntent.putExtra(""+String.format("%d", R.string.score_tag), ""+game.getScore());
+                    startActivity(myIntent);
+                }
             }
 
             @Override
@@ -224,7 +237,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         answer4TV.startAnimation(animation);
     }
 
-    public void setAnswers(){
+    public void setAnswersView(){
         answer1TV.setX(laneOptions.get(0));
         answer1TV.setY(0);
         answer2TV.setX(laneOptions.get(1));
@@ -258,12 +271,12 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                float valueX = x2 - x1;
                if(Math.abs(valueX) > 100){
                    if(x2>x1) {
+                       // user swiped right on screen
                        changePos(false);
-                       Toast.makeText(GameActivity.this,"right",Toast.LENGTH_SHORT).show();
                    }
                    else {
+                       // user swiped left on screen
                        changePos(true);
-                       Toast.makeText(GameActivity.this,"left",Toast.LENGTH_SHORT).show();
                    }
                }
                break;

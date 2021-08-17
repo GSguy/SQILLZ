@@ -14,7 +14,6 @@ public class Game {
     private ArrayList<Question> hard_questions;
     private ArrayList<Integer> used_questions;
     private ArrayList<Answer> answers;
-    private Map<String, Integer> highscore;
 
     public Game(String user, DifficultyEnum difficulty){
         this.user = user;
@@ -26,29 +25,6 @@ public class Game {
         this.used_questions = new ArrayList<>();
         this.answers = new ArrayList<>();
         setQNA();
-        loadHighscore();
-    }
-
-    private void loadHighscore(){
-        // TODO: load highscore from file
-
-        this.highscore = new HashMap<String, Integer>();
-    }
-
-    private void saveHighscore(){
-        // TODO: save highscore to file
-    }
-
-    private void gameWon(){
-        saveHighscore();
-    }
-
-    private void gameLost(){
-        saveHighscore();
-    }
-
-    private void checkAnswer(Answer answer){
-
     }
 
     private void setQNA(){
@@ -130,5 +106,9 @@ public class Game {
 
     public int getScore() {
         return this.score;
+    }
+
+    public void roundWon() {
+        this.score = this.score + this.difficulty.getValue();
     }
 }
