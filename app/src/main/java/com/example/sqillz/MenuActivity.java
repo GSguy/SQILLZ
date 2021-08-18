@@ -10,17 +10,21 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sqillz.logic.DifficultyEnum;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MenuActivity extends AppCompatActivity {
 
     private Button highestScoresBtn;
     private Button startGameBtn;
     private Button logOutBtn;
 
-    private TextView helloUserName;
+    private TextView helloTV;
 
-    private RadioGroup difficultyRadioGroup;
-    private RadioGroup speedRadioGroup;
+    private RadioGroup difficultyRG;
+    private RadioGroup speedRG;
 
+    private FirebaseAuth mAuth;
     private HighScoresFragment highScoresFragment;
 
 
@@ -29,19 +33,72 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_activity);
 
+        viewsInit();
+
+        setupViews();
+    }
+
+    private void setupViews() {
+        highestScoresBtn.setOnClickListener(v -> openHighestScoresFragment());
+        startGameBtn.setOnClickListener(v-> startGame());
+
+        setupUserName();
+    }
+
+    private DifficultyEnum getDifficultyLevelFromUser() {
+        DifficultyEnum diff = DifficultyEnum.EASY;   // the default value
+        switch (difficultyRG.getCheckedRadioButtonId()) {
+            case R.id.easyRB:
+                diff = DifficultyEnum.EASY;
+                break;
+            case R.id.mediumRB:
+                diff = DifficultyEnum.MEDIUM;
+                break;
+            case R.id.hardRB:
+                diff = DifficultyEnum.HARD;
+                break;
+        }
+        return diff;
+    }
+
+    private void viewsInit() {
         this.highScoresFragment = new HighScoresFragment();
 
         highestScoresBtn = findViewById(R.id.highest_scores_btn);
         startGameBtn = findViewById(R.id.startGameBtn);
         logOutBtn = findViewById(R.id.logOutBtn);
-
-        highestScoresBtn.setOnClickListener(v -> openHighestScoresFragment());
-        startGameBtn.setOnClickListener(v-> startFame());
+        difficultyRG = findViewById(R.id.difficultyRG);
+        speedRG = findViewById(R.id.speedRG);
+        helloTV = findViewById(R.id.helloTV);
     }
 
-    private void startFame() {
+    private void setupUserName() {
+        mAuth = FirebaseAuth.getInstance();
+        String name = mAuth.getCurrentUser().getEmail().split("@")[0];
+        String helloText = this.getResources().getString(R.string.hello_user);
+        helloTV.setText(String.format("%s %s", helloText, name));
+    }
+
+    private void startGame() {
+        DifficultyEnum diff = getDifficultyLevelFromUser();
+        String speed = getSpeedFromUser();
         Intent intent = new Intent(MenuActivity.this, GameActivity.class);
+        intent.putExtra(getResources().getString(R.string.diff_tag), ""+diff.name());
+        intent.putExtra(getResources().getString(R.string.speed_tag), speed);
         startActivity(intent);
+    }
+
+    private String getSpeedFromUser() {
+        String speed = getResources().getString(R.string.slow_text);
+        switch (speedRG.getCheckedRadioButtonId()){
+            case R.id.slowRG:
+                speed = getResources().getString(R.string.slow_text);
+                break;
+            case R.id.fastRG:
+                speed = getResources().getString(R.string.fast_text);
+                break;
+        }
+        return speed;
     }
 
     private void openHighestScoresFragment() {

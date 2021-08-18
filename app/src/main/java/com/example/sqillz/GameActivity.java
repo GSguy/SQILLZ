@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -32,8 +33,16 @@ import java.util.Timer;
 public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener  {
 
     // Game args
+    private static int SLOW_MIN_DROP_SPEED = 3000;
+    private static int SLOW_STARTING_SPEED = 7000;
+    private static int FAST_MIN_DROP_SPEED = 2000;
+    private static int FAST_STARTING_SPEED = 5500;
+
     private Game game;
+    private DifficultyEnum difficulty;
     private TextView selectedTV;
+    private String speed;
+    private int dropDuration;
 
     // general
     private Handler handler = new Handler();
@@ -70,9 +79,20 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         gestureDetector = new GestureDetector(GameActivity.this,this);
 
         // setup
+        loadStringsExtra();
         setViews();
         setGame();
         setAnswersView();
+    }
+
+    private void loadStringsExtra() {
+        String DifficultyLevel, speed;
+
+        Intent intent = getIntent();
+        DifficultyLevel = intent.getStringExtra(getResources().getString(R.string.diff_tag));
+        speed = intent.getStringExtra(getResources().getString(R.string.speed_tag));
+        this.difficulty = DifficultyEnum.valueOf(DifficultyLevel);
+        this.speed = speed;
     }
 
     public boolean checkAnswer(){
@@ -100,9 +120,10 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         this.start_flg = false;
         mAuth = FirebaseAuth.getInstance();
         String name = mAuth.getCurrentUser().getEmail().split("@")[0];
-        game = new Game(name, DifficultyEnum.MEDIUM);
+        game = new Game(name, difficulty);
 
         setScoreView();
+        this.dropDuration = speed.equals(getResources().getString(R.string.slow_text))? SLOW_STARTING_SPEED : FAST_STARTING_SPEED;
     }
 
     private void setScoreView(){
@@ -201,7 +222,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     private void setAnimation(){
         // Set Animation
         animation = AnimationUtils.loadAnimation(GameActivity.this, R.anim.top_down);
-        animation.setDuration(4000);
+        animation.setDuration(dropDuration);
         //animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -214,6 +235,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                 if(checkAnswer()) {
                     // Round Won
                     game.roundWon();
+                    if (((dropDuration > SLOW_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.slow_text))))
+                            || ((dropDuration > FAST_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.fast_text))))) {
+                        dropDuration -= 400;
+                        Log.i("speed", "" + dropDuration);
+                    }
                     setNextQuestion();
                     setAnswersView();
                     setAnimation();

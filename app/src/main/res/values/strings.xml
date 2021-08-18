@@ -18,7 +18,7 @@
     <string name="hard_text">Hard</string>
     <string name="slow_text">Slow</string>
     <string name="fast_text">Fast</string>
-    <string name="hello_user">Hello (user..)</string>
+    <string name="hello_user">Hello</string>
 
     <string name="pause_continue_text">start</string>
     <string name="question_text">Question: </string>
@@ -32,6 +32,8 @@
     <string name="gameover_text">GAMEOVER</string>
 
     <string name="score_tag">playerscoretag</string>
+    <string name="diff_tag">diffucltytag</string>
+    <string name="speed_tag">speedtag</string>
 
     <string name="place_text">Place</string>
     <string name="name_text">Name</string>

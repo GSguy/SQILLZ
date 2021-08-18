@@ -1,9 +1,9 @@
 package com.example.sqillz.logic;
 
 public enum DifficultyEnum {
-        EASY(2),
-        MEDIUM(4),
-        HARD(8);
+        EASY(5),
+        MEDIUM(10),
+        HARD(20);
 
         private final int value;
         DifficultyEnum(int value) {

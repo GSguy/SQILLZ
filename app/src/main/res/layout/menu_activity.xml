@@ -10,23 +10,29 @@
     >
 
     <RadioGroup
+        android:id="@+id/speedRG"
         android:layout_width="140dp"
         android:layout_height="131dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" >
+        android:layout_marginTop="0dp"
+        app:layout_constraintStart_toEndOf="@+id/difficultyRG"
+        app:layout_constraintTop_toTopOf="@+id/difficultyRG" >
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/slowRG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:checked="true"
             android:text="@string/slow_text" />
 
         <RadioButton
-            android:id="@+id/radioButton7"
+            android:id="@+id/fastRG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
             android:text="@string/fast_text" />
     </RadioGroup>
 
@@ -39,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/difficultyRG" />
 
     <Button
         android:id="@+id/highest_scores_btn"
@@ -63,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/highest_scores_btn" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/difficultyTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -71,27 +77,22 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="@id/difficultyRG"
+        app:layout_constraintBottom_toTopOf="@+id/difficultyRG" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/speedTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="@string/speed_text"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.66"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="@id/speedRG"
+        app:layout_constraintBottom_toTopOf="@+id/speedRG" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/helloTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -101,34 +102,43 @@
         android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/difficultyRG"
         android:layout_width="148dp"
         android:layout_height="137dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" >
+        app:layout_constraintTop_toBottomOf="@+id/helloTV" >
 
         <RadioButton
-            android:id="@+id/radioButton8"
+            android:id="@+id/easyRB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:checked="true"
             android:text="@string/easy_text" />
 
         <RadioButton
-            android:id="@+id/radioButton9"
+            android:id="@+id/mediumRB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
             android:text="@string/medium_text" />
 
         <RadioButton
-            android:id="@+id/radioButton10"
+            android:id="@+id/hardRB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
             android:text="@string/hard_text" />
     </RadioGroup>
 
