@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.sqillz.logic.Score;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.example.sqillz.logic.Utils;
@@ -25,7 +26,7 @@ public class HighScoresFragment extends Fragment {
     private Button backBtn;
     private Context contextReference;
     private View viewReference;
-    private List<Integer> scores;
+    private List<Score> scores;
 
     public HighScoresFragment() {
         // Required empty public constructor
@@ -69,30 +70,40 @@ public class HighScoresFragment extends Fragment {
         SharedPreferences sharedPref = contextReference.getSharedPreferences(filename,Context.MODE_PRIVATE);
         String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
                 Utils.getJsonFromAssets(contextReference, "template_scores_json.json"));
+        Log.d("jsonFileString",jsonFileString);
         Gson gson = new Gson();
-        Type listScoreType = new TypeToken<List<Integer>>() {}.getType();
+        Type listScoreType = new TypeToken<List<Score>>() {}.getType();
         scores = gson.fromJson(jsonFileString, listScoreType);
     }
-
 
     private void saveScoresToFragmentTable() {
         int viewId;
         String idName;
         TextView tv;
-//        for (int i = 0; i < scores.size(); i++)
-//        {
-//            idName = "row" + scores.get(i).getPlace();  //  the text "row"+index is by the id-names in the fragment layout
-//            viewId = getResources().getIdentifier(idName, "id", contextReference.getPackageName());
-//            tv = (TextView) viewReference.findViewById(viewId).findViewWithTag(scores.get(i).getStringDifficulty());
-//            tv.setText(scores.get(i).getTimeScore());
-//        }
+        for (int i = 0; i < scores.size(); i++)
+        {
+            idName = "row" + scores.get(i).getPlace();  //  the text "row"+index is by the id-names in the fragment layout
+            viewId = getResources().getIdentifier(idName, "id", contextReference.getPackageName());
+            tv = (TextView) viewReference.findViewById(viewId).findViewWithTag("name");
+            tv.setText(scores.get(i).getName());
+            tv = (TextView) viewReference.findViewById(viewId).findViewWithTag("score");
+            tv.setText("" + scores.get(i).getScore());
+        }
     }
 
     @Override
     public void onStart() {
         Log.d("fragment", "onStart");
         super.onStart();
-//        saveScoresToFragmentTable();
+        saveScoresToFragmentTable();
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
     }
 
 }
