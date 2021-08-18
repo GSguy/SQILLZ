@@ -151,11 +151,12 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     private void setGame(){
+        boolean isSlow = speed.equals(getResources().getString(R.string.slow_text));
         this.start_flg = false;
-        game = new Game(name, difficulty);
+        game = new Game(name, difficulty, isSlow);
 
         setScoreView();
-        this.dropDuration = speed.equals(getResources().getString(R.string.slow_text))? SLOW_STARTING_SPEED : FAST_STARTING_SPEED;
+        this.dropDuration = isSlow ? SLOW_STARTING_SPEED : FAST_STARTING_SPEED;
     }
 
     private void setScoreView(){

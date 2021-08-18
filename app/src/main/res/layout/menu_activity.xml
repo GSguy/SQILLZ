@@ -113,7 +113,9 @@
         android:layout_height="137dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
+        android:layout_marginBottom="350dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/helloTV" >
 
         <RadioButton

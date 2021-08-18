@@ -14,8 +14,13 @@ public class Game {
     private ArrayList<Question> hard_questions;
     private ArrayList<Integer> used_questions;
     private ArrayList<Answer> answers;
+    private boolean isFast;
 
     public Game(String user, DifficultyEnum difficulty){
+        this(user,difficulty, false);
+    }
+
+    public Game(String user, DifficultyEnum difficulty, boolean isFast){
         this.user = user;
         this.difficulty = difficulty;
         this.score = 0;
@@ -24,6 +29,7 @@ public class Game {
         this.hard_questions = new ArrayList<>();
         this.used_questions = new ArrayList<>();
         this.answers = new ArrayList<>();
+        this.isFast = isFast;
         setQNA();
     }
 
@@ -109,6 +115,6 @@ public class Game {
     }
 
     public void roundWon() {
-        this.score = this.score + this.difficulty.getValue();
+        this.score += isFast ? this.difficulty.getValue() : this.difficulty.getValue() * 1.5;
     }
 }
