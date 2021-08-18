@@ -41,7 +41,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     private Game game;
     private DifficultyEnum difficulty;
     private TextView selectedTV;
-    private String speed;
+    private String speed, name;
     private int dropDuration;
 
     // general
@@ -85,6 +85,40 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         setAnswersView();
     }
 
+    private void roundWon(){
+        game.roundWon();
+        if (((dropDuration > SLOW_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.slow_text))))
+                || ((dropDuration > FAST_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.fast_text))))) {
+            dropDuration -= 400;
+            Log.i("speed", "" + dropDuration);
+        }
+        setNextQuestion();
+        setAnswersView();
+        setAnimation();
+    }
+
+    private void gameOver(){
+        // Move to Score Activity
+        Intent myIntent = new Intent(GameActivity.this, ScoreActivity.class);
+        myIntent.putExtra(getResources().getString(R.string.score_tag), ""+game.getScore());
+        startActivity(myIntent);
+
+        // Setup for rerun game
+        clearBoard();
+    }
+
+    private void clearBoard() {
+        setGame();
+
+        questionTV.setText("");
+        answer1TV.setText("");
+        answer2TV.setText("");
+        answer3TV.setText("");
+        answer4TV.setText("");
+        playerPosition = 2;
+        playerView.setX(laneOptions.get(playerPosition));
+    }
+
     private void loadStringsExtra() {
         String DifficultyLevel, speed;
 
@@ -118,8 +152,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
     private void setGame(){
         this.start_flg = false;
-        mAuth = FirebaseAuth.getInstance();
-        String name = mAuth.getCurrentUser().getEmail().split("@")[0];
         game = new Game(name, difficulty);
 
         setScoreView();
@@ -127,7 +159,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     private void setScoreView(){
-        scoreTV.setText(String.format("%s %d",this.getResources().getString(R.string.score_text), game.getScore()));
+        scoreTV.setText(String.format("%s %d",getResources().getString(R.string.score_text), game.getScore()));
     }
 
     private void setViews(){
@@ -203,6 +235,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     private void exitButtonClicked() {
+        finish();
     }
 
     private void initViews(){
@@ -217,6 +250,9 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
         exitBTN = findViewById(R.id.exitBTN);
         startBTN = findViewById(R.id.startBTN);
+
+        mAuth = FirebaseAuth.getInstance();
+        name = mAuth.getCurrentUser().getEmail().split("@")[0];
     }
 
     private void setAnimation(){
@@ -234,21 +270,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
             public void onAnimationEnd(Animation animation) {
                 if(checkAnswer()) {
                     // Round Won
-                    game.roundWon();
-                    if (((dropDuration > SLOW_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.slow_text))))
-                            || ((dropDuration > FAST_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.fast_text))))) {
-                        dropDuration -= 400;
-                        Log.i("speed", "" + dropDuration);
-                    }
-                    setNextQuestion();
-                    setAnswersView();
-                    setAnimation();
+                    roundWon();
                 }
                 else {
                     // Game Over
-                    Intent myIntent = new Intent(GameActivity.this, ScoreActivity.class);
-                    myIntent.putExtra(GameActivity.this.getResources().getString(R.string.score_tag), ""+game.getScore());
-                    startActivity(myIntent);
+                    gameOver();
                 }
             }
 

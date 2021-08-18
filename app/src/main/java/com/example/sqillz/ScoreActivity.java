@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sqillz.logic.DifficultyEnum;
+
 public class ScoreActivity extends AppCompatActivity {
 
     private TextView scoreEndTV, placeEndTV, highscoreEndTV;
@@ -20,8 +22,25 @@ public class ScoreActivity extends AppCompatActivity {
 
         initView();
 
+        setupView();
+
         loadStringsExtra();
         loadViewsData();
+    }
+
+    private void setupView() {
+        rerunBTN.setOnClickListener(v -> rerunClicked());
+        menuBTN.setOnClickListener(v -> menuClicked());
+    }
+
+    private void menuClicked() {
+        Intent i = new Intent(this, MenuActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    private void rerunClicked() {
+        this.finish();
     }
 
     private void initView() {
@@ -34,7 +53,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     private void loadViewsData() {
-        String scoretext = this.getResources().getString(R.string.score_text);
+        String scoretext = getResources().getString(R.string.score_text);
         scoreEndTV.setText(String.format("%s %d", scoretext, score));
     }
 
@@ -42,7 +61,7 @@ public class ScoreActivity extends AppCompatActivity {
         String score;
 
         Intent intent = getIntent();
-        score = intent.getStringExtra(ScoreActivity.this.getResources().getString(R.string.score_tag));
+        score = intent.getStringExtra(getResources().getString(R.string.score_tag));
         this.score = Integer.parseInt(score);
     }
 }
