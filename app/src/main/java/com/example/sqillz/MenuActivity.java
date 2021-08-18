@@ -41,8 +41,13 @@ public class MenuActivity extends AppCompatActivity {
     private void setupViews() {
         highestScoresBtn.setOnClickListener(v -> openHighestScoresFragment());
         startGameBtn.setOnClickListener(v-> startGame());
+        logOutBtn.setOnClickListener(v -> logout());
 
         setupUserName();
+    }
+
+    private void logout() {
+        finish();
     }
 
     private DifficultyEnum getDifficultyLevelFromUser() {
