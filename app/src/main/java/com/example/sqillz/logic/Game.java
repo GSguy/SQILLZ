@@ -161,6 +161,10 @@ public class Game {
         return this.score;
     }
 
+    public String getUser() {
+        return this.user;
+    }
+
     public void roundWon() {
         this.score += isFast ? this.difficulty.getValue() : this.difficulty.getValue() * 1.5;
     }

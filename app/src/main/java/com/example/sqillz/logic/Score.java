@@ -39,7 +39,8 @@ public class Score {
 
     public void setName(String name) { this.name = name; }
 
-    public String toJsonString() {
+    @Override
+    public String toString() {
         return "Score{" +
                 "place='" + place + '\'' +
                 ", name=" + name +

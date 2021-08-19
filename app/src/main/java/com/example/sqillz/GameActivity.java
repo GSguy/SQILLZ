@@ -101,6 +101,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         // Move to Score Activity
         Intent myIntent = new Intent(GameActivity.this, ScoreActivity.class);
         myIntent.putExtra(getResources().getString(R.string.score_tag), ""+game.getScore());
+        myIntent.putExtra(getResources().getString(R.string.username_tag), ""+game.getUser());
         startActivity(myIntent);
 
         // Setup for rerun game

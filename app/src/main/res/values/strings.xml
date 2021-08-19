@@ -32,6 +32,7 @@
     <string name="gameover_text">GAMEOVER</string>
 
     <string name="score_tag">playerscoretag</string>
+    <string name="username_tag">username_tag</string>
     <string name="diff_tag">diffucltytag</string>
     <string name="speed_tag">speedtag</string>
 
