@@ -72,7 +72,7 @@ public class HighScoresFragment extends Fragment {
         SharedPreferences sharedPref = contextReference.getSharedPreferences(filename,Context.MODE_PRIVATE);
 
         // for reset all highest results: (!!!!!!!)
-        // sharedPref.edit().clear().commit();
+         // sharedPref.edit().clear().commit();
 
         String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
                 Utils.getJsonFromAssets(contextReference, "template_scores_json.json"));
@@ -112,17 +112,14 @@ public class HighScoresFragment extends Fragment {
         highestScores = scores;
     }
 
-    public static void checkIfIn10BestScoresAndSave(Score newScore){
+    public static int checkIfIn10BestScoresAndSave(Score newScore){
+        int i, thePlaceScore = Integer.MAX_VALUE;
 
-        Log.d("highestScorefragment", highestScores.toString());
-        Log.d("newScore in fragment ", newScore.toString());
-
-        int i;
         // loop for check where insert the newScore
         for (i = 0; i < highestScores.size() ; i++){
             if (newScore.getScore() > highestScores.get(i).getScore()) {
-                Log.d("i",i+"");
-                newScore.setPlace( highestScores.get(i).getPlace());
+                newScore.setPlace(highestScores.get(i).getPlace());
+                thePlaceScore = newScore.getPlace();
                 highestScores.add(i, newScore);
                 highestScores.remove(10);  // drop last result
                 break;
@@ -132,6 +129,11 @@ public class HighScoresFragment extends Fragment {
         for (i=i+1 ; i < highestScores.size() ; i++){
             highestScores.get(i).setPlace(highestScores.get(i).getPlace()+1);
         }
+        return thePlaceScore;
+    }
+
+    public static int getTheHighestScoreNumber (){
+        return highestScores.get(0).getScore();
     }
 
 }

@@ -21,7 +21,7 @@ public class ScoreActivity extends AppCompatActivity {
 
     private TextView scoreEndTV, placeEndTV, highScoreEndTV;
     private Button rerunBTN, menuBTN;
-    private int userScore, userPlace, highestScore;
+    private int userScore, userPlace;
     private String username;
 
 
@@ -31,13 +31,12 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(R.layout.score_activity);
 
         initView();
-
         setupView();
 
         loadStringsExtra();
-        loadViewsData();
 
         checkAndSaveScoreInHighestScoresList();
+        loadViewsData();
     }
 
     private void setupView() {
@@ -69,10 +68,14 @@ public class ScoreActivity extends AppCompatActivity {
         scoreEndTV.setText(String.format("%s %d", scoreText, userScore));
 
         String placeText = getResources().getString(R.string.place_text);
-        placeEndTV.setText(String.format("%s %d", placeText, userPlace));
+        // check if the user place is in the top 10:
+        if (userPlace <= HighScoresFragment.highestScores.size())
+            placeEndTV.setText(String.format("%s %d", placeText, userPlace));
+        else
+            placeEndTV.setText(String.format("%s %d", placeText, getResources().getString(R.string.notSavedText)));
 
         String highestScoreText = getResources().getString(R.string.highest_score_text);
-        highScoreEndTV.setText(String.format("%s %d", highestScoreText, highestScore));
+        highScoreEndTV.setText(String.format("%s %d", highestScoreText, HighScoresFragment.getTheHighestScoreNumber()));
     }
 
     private void loadStringsExtra() {
@@ -89,18 +92,11 @@ public class ScoreActivity extends AppCompatActivity {
 
     public void checkAndSaveScoreInHighestScoresList()
     {
-        Log.d("scoreActivity", "checkAndSaveScoreInHighestScoresList");
-
-        Log.d("highestScores",HighScoresFragment.highestScores.toString());
-
         Score score = new Score(0,username, userScore);
 
-        Log.d("newScore", score.toString());
-
-        HighScoresFragment.checkIfIn10BestScoresAndSave(score);
+        userPlace = HighScoresFragment.checkIfIn10BestScoresAndSave(score);
         saveHighestScoresListsToJsonFile();
     }
-
 
     private void saveHighestScoresListsToJsonFile() {
         String filename = getResources().getString(R.string.Scores_Json_File);
