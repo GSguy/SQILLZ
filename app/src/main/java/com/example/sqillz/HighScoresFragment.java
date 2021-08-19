@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.sqillz.logic.Game;
 import com.example.sqillz.logic.Score;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,8 +27,6 @@ public class HighScoresFragment extends Fragment {
     private Button backBtn;
     private Context contextReference;
     private View viewReference;
-    public static ArrayList<Score> highestScores = new ArrayList<>();
-    public static int highScoreInteger;
     public final static int NUM_OF_RESULTS = 10;
 
     public HighScoresFragment() {
@@ -57,19 +56,9 @@ public class HighScoresFragment extends Fragment {
         backBtn.setOnClickListener(v -> closeHighestScoreFragment());
 
         loadHighestScoresFromFile();
-        highScoreInteger = highestScores.get(0).getScore();
+        Game.highestScoreInteger = Game.highestScores.get(0).getScore();
 
         return this.viewReference;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        saveTheHighestScoreInExtraParams();
-    }
-
-    private void saveTheHighestScoreInExtraParams() {
-
     }
 
     private void closeHighestScoreFragment() {
@@ -84,7 +73,7 @@ public class HighScoresFragment extends Fragment {
         SharedPreferences sharedPref = contextReference.getSharedPreferences(filename, Context.MODE_PRIVATE);
 
         // for reset all highest results: (!!!!!!!)
-        // sharedPref.edit().clear().commit();
+        // haredPref.edit().clear().commit();
 
         String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
                 Utils.getJsonFromAssets(contextReference, "template_scores_json.json"));
@@ -92,20 +81,20 @@ public class HighScoresFragment extends Fragment {
         Gson gson = new Gson();
         Type listScoreType = new TypeToken<ArrayList<Score>>() {
         }.getType();
-        highestScores = gson.fromJson(jsonFileString, listScoreType);
+        Game.highestScores = gson.fromJson(jsonFileString, listScoreType);
     }
 
     private void saveScoresToFragmentTable() {
         int viewId;
         String idName;
         TextView tv;
-        for (int i = 0; i < highestScores.size(); i++) {
-            idName = "row" + highestScores.get(i).getPlace();  //  the text "row"+index is by the id-names in the fragment layout
+        for (int i = 0; i < Game.highestScores.size(); i++) {
+            idName = "row" + Game.highestScores.get(i).getPlace();  //  the text "row"+index is by the id-names in the fragment layout
             viewId = getResources().getIdentifier(idName, "id", contextReference.getPackageName());
             tv = (TextView) viewReference.findViewById(viewId).findViewWithTag("name");
-            tv.setText(highestScores.get(i).getName());
+            tv.setText(Game.highestScores.get(i).getName());
             tv = (TextView) viewReference.findViewById(viewId).findViewWithTag("score");
-            tv.setText("" + highestScores.get(i).getScore());
+            tv.setText("" + Game.highestScores.get(i).getScore());
         }
     }
 
@@ -116,39 +105,28 @@ public class HighScoresFragment extends Fragment {
         saveScoresToFragmentTable();
     }
 
-    public ArrayList<Score> getScores() {
-        return highestScores;
-    }
-
-    public void setScores(ArrayList<Score> scores) {
-        highestScores = scores;
-    }
-
     public static int checkIfIn10BestScoresAndSave(Score newScore) {
         int i, thePlaceScore = Integer.MAX_VALUE;
 
         // loop for check where insert the newScore
-        for (i = 0; i < highestScores.size(); i++) {
-            if (newScore.getScore() > highestScores.get(i).getScore()) {
-                newScore.setPlace(highestScores.get(i).getPlace());
+        for (i = 0; i < Game.highestScores.size(); i++) {
+            if (newScore.getScore() > Game.highestScores.get(i).getScore()) {
+                newScore.setPlace(Game.highestScores.get(i).getPlace());
                 thePlaceScore = newScore.getPlace();
-                highestScores.add(i, newScore);
-                highestScores.remove(10);  // drop last result
+                Game.highestScores.add(i, newScore);
+                Game.highestScores.remove(10);  // drop last result
                 break;
             }
         }
         // loop for update the rest scores's places.
-        for (i = i + 1; i < highestScores.size(); i++) {
-            highestScores.get(i).setPlace(highestScores.get(i).getPlace() + 1);
+        for (i = i + 1; i < Game.highestScores.size(); i++) {
+            Game.highestScores.get(i).setPlace(Game.highestScores.get(i).getPlace() + 1);
         }
 
-        highScoreInteger = highestScores.get(0).getScore();
+        Game.highestScoreInteger = Game.highestScores.get(0).getScore();
 
         return thePlaceScore;
     }
 
-    public static int getTheHighestScoreNumber() {
-        return highScoreInteger;
-    }
 
 }

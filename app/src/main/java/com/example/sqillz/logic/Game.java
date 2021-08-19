@@ -24,6 +24,8 @@ public class Game {
     private DifficultyEnum difficulty;
     private boolean isFast;
     private int score;
+    public static ArrayList<Score> highestScores = new ArrayList<>();
+    public static int highestScoreInteger;
 
     public Game(DifficultyEnum difficulty) {
         this(difficulty, false);

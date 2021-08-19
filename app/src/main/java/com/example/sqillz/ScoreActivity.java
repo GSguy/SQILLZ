@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sqillz.logic.Game;
 import com.example.sqillz.logic.Score;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -68,13 +69,13 @@ public class ScoreActivity extends AppCompatActivity {
 
         String placeText = getResources().getString(R.string.your_place_text);
         // check if the user place is in the top 10:
-        if (userPlace <= HighScoresFragment.highestScores.size())
+        if (userPlace <= Game.highestScores.size())
             placeEndTV.setText(String.format("%s %d", placeText, userPlace));
         else
             placeEndTV.setText(String.format("%s %s", placeText, getResources().getString(R.string.notSavedText)));
 
         String highestScoreText = getResources().getString(R.string.highest_score_text);
-        highScoreEndTV.setText(String.format("%s %d", highestScoreText, HighScoresFragment.getTheHighestScoreNumber()));
+        highScoreEndTV.setText(String.format("%s %d", highestScoreText, Game.highestScoreInteger));
     }
 
     private void loadStringsExtra() {
@@ -104,7 +105,7 @@ public class ScoreActivity extends AppCompatActivity {
         Gson gson = new Gson();
         Type listScoreType = new TypeToken<ArrayList<Score>>() {
         }.getType();
-        String scoresListJson = gson.toJson(HighScoresFragment.highestScores, listScoreType);
+        String scoresListJson = gson.toJson(Game.highestScores, listScoreType);
 
         editor.putString(getString(R.string.Scores_Json_String), scoresListJson);
         editor.apply();
