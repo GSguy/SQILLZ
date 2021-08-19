@@ -72,7 +72,7 @@ public class HighScoresFragment extends Fragment {
         SharedPreferences sharedPref = contextReference.getSharedPreferences(filename,Context.MODE_PRIVATE);
 
         // for reset all highest results: (!!!!!!!)
-         // sharedPref.edit().clear().commit();
+        // sharedPref.edit().clear().commit();
 
         String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
                 Utils.getJsonFromAssets(contextReference, "template_scores_json.json"));

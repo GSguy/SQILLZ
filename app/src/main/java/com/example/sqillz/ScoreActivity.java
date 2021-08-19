@@ -64,15 +64,15 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     private void loadViewsData() {
-        String scoreText = getResources().getString(R.string.score_text);
+        String scoreText = getResources().getString(R.string.your_score_text);
         scoreEndTV.setText(String.format("%s %d", scoreText, userScore));
 
-        String placeText = getResources().getString(R.string.place_text);
+        String placeText = getResources().getString(R.string.your_place_text);
         // check if the user place is in the top 10:
         if (userPlace <= HighScoresFragment.highestScores.size())
             placeEndTV.setText(String.format("%s %d", placeText, userPlace));
         else
-            placeEndTV.setText(String.format("%s %d", placeText, getResources().getString(R.string.notSavedText)));
+            placeEndTV.setText(String.format("%s %s", placeText, getResources().getString(R.string.notSavedText)));
 
         String highestScoreText = getResources().getString(R.string.highest_score_text);
         highScoreEndTV.setText(String.format("%s %d", highestScoreText, HighScoresFragment.getTheHighestScoreNumber()));
