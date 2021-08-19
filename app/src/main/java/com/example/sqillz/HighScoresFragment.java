@@ -27,6 +27,7 @@ public class HighScoresFragment extends Fragment {
     private Context contextReference;
     private View viewReference;
     public static ArrayList<Score> highestScores = new ArrayList<>();
+    public static int highScoreInteger;
     public final static int NUM_OF_RESULTS = 10;
 
     public HighScoresFragment() {
@@ -56,8 +57,19 @@ public class HighScoresFragment extends Fragment {
         backBtn.setOnClickListener(v -> closeHighestScoreFragment());
 
         loadHighestScoresFromFile();
+        highScoreInteger = highestScores.get(0).getScore();
 
         return this.viewReference;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveTheHighestScoreInExtraParams();
+    }
+
+    private void saveTheHighestScoreInExtraParams() {
+
     }
 
     private void closeHighestScoreFragment() {
@@ -129,11 +141,14 @@ public class HighScoresFragment extends Fragment {
         for (i = i + 1; i < highestScores.size(); i++) {
             highestScores.get(i).setPlace(highestScores.get(i).getPlace() + 1);
         }
+
+        highScoreInteger = highestScores.get(0).getScore();
+
         return thePlaceScore;
     }
 
     public static int getTheHighestScoreNumber() {
-        return highestScores.get(0).getScore();
+        return highScoreInteger;
     }
 
 }
