@@ -37,7 +37,7 @@
     <string name="speed_tag">speedtag</string>
 
     <string name="place_text">Place</string>
-    <string name="notSavedText">Not Saved</string>
+    <string name="notInHighestScoresText">Not in highestScores</string>
     <string name="name_text">Name</string>
     <string name="back_button">Back</string>
 

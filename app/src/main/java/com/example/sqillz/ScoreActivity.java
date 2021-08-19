@@ -72,7 +72,7 @@ public class ScoreActivity extends AppCompatActivity {
         if (userPlace <= Game.highestScores.size())
             placeEndTV.setText(String.format("%s %d", placeText, userPlace));
         else
-            placeEndTV.setText(String.format("%s %s", placeText, getResources().getString(R.string.notSavedText)));
+            placeEndTV.setText(String.format("%s %s", placeText, getResources().getString(R.string.notInHighestScoresText)));
 
         String highestScoreText = getResources().getString(R.string.highest_score_text);
         highScoreEndTV.setText(String.format("%s %d", highestScoreText, Game.highestScoreInteger));

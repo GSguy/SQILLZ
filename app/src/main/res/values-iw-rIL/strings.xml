@@ -37,6 +37,6 @@
     <string name="diff_tag">diffucltytag</string>
     <string name="speed_tag">speedtag</string>
 
-    <string name="notSavedText">לא נשמר</string>
+    <string name="notInHighestScoresText">לא נכנס לשיאים</string>
 
 </resources>
