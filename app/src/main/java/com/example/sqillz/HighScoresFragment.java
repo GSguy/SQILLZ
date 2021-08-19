@@ -27,7 +27,6 @@ public class HighScoresFragment extends Fragment {
     private Button backBtn;
     private Context contextReference;
     private View viewReference;
-    public final static int NUM_OF_RESULTS = 10;
 
     public HighScoresFragment() {
         // Required empty public constructor
@@ -66,7 +65,7 @@ public class HighScoresFragment extends Fragment {
         getActivity().onBackPressed();
     }
 
-    private void loadHighestScoresFromFile() {
+    public void loadHighestScoresFromFile() {
         Log.d("fragment", "loadHighestScoresFromFile");
 
         String filename = getResources().getString(R.string.Scores_Json_File);
@@ -127,6 +126,5 @@ public class HighScoresFragment extends Fragment {
 
         return thePlaceScore;
     }
-
 
 }

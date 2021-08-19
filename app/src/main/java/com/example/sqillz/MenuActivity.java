@@ -1,6 +1,8 @@
 package com.example.sqillz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sqillz.logic.DifficultyEnum;
+import com.example.sqillz.logic.Game;
+import com.example.sqillz.logic.Score;
+import com.example.sqillz.logic.Utils;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -36,6 +46,12 @@ public class MenuActivity extends AppCompatActivity {
         viewsInit();
 
         setupViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadHighestScoresFromFile();
     }
 
     private void setupViews() {
@@ -124,5 +140,23 @@ public class MenuActivity extends AppCompatActivity {
             startGameBtn.setVisibility(View.VISIBLE);
             logOutBtn.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void loadHighestScoresFromFile() {
+        Log.d("fragment", "loadHighestScoresFromFile");
+
+        String filename = getResources().getString(R.string.Scores_Json_File);
+        SharedPreferences sharedPref = getSharedPreferences(filename, Context.MODE_PRIVATE);
+
+        // for reset all highest results: (!!!!!!!)
+        // sharedPref.edit().clear().commit();
+
+        String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
+                Utils.getJsonFromAssets(getApplicationContext(), "template_scores_json.json"));
+        Log.d("jsonFileString", jsonFileString);
+        Gson gson = new Gson();
+        Type listScoreType = new TypeToken<ArrayList<Score>>() {
+        }.getType();
+        Game.highestScores = gson.fromJson(jsonFileString, listScoreType);
     }
 }
