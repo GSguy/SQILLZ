@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
-    private static int EASY_NUM_OF_QUESTIONS = 60;
-    private static int EASY_MAX_VALUE = 15;
+    private final static int EASY_NUM_OF_QUESTIONS = 60;
+    private final static int EASY_MAX_VALUE = 15;
 
-    private static int MID_NUM_OF_QUESTIONS = 40;
-    private static int MID_MAX_PLUS_VALUE = 30;
-    private static int MID_MAX_MUL_VALUE = 7;
-    private static int MID_MAX_MUL_TIMES = 7;
+    private final static int MID_NUM_OF_QUESTIONS = 40;
+    private final static int MID_MAX_PLUS_VALUE = 30;
+    private final static int MID_MAX_MUL_VALUE = 7;
+    private final static int MID_MAX_MUL_TIMES = 7;
 
-    private static int HARD_NUM_OF_QUESTIONS = 25;
-    private static int HARD_MAX_PLUS_VALUE = 75;
-    private static int HARD_MAX_MUL_VALUE = 10;
-    private static int HARD_MAX_MUL_TIMES = 10;
+    private final static int HARD_NUM_OF_QUESTIONS = 25;
+    private final static int HARD_MAX_PLUS_VALUE = 75;
+    private final static int HARD_MAX_MUL_VALUE = 10;
+    private final static int HARD_MAX_MUL_TIMES = 10;
 
     private ArrayList<Question> easy_questions;
     private ArrayList<Question> mid_questions;

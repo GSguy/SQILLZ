@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
@@ -26,15 +24,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
 
 public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     // Game args
-    private static int SLOW_MIN_DROP_SPEED = 3000;
-    private static int SLOW_STARTING_SPEED = 7000;
-    private static int FAST_MIN_DROP_SPEED = 2000;
-    private static int FAST_STARTING_SPEED = 5500;
+    private final static int SLOW_MIN_DROP_SPEED = 3000;
+    private final static int SLOW_STARTING_SPEED = 7000;
+    private final static int FAST_MIN_DROP_SPEED = 2000;
+    private final static int FAST_STARTING_SPEED = 5500;
 
     private Game game;
     private DifficultyEnum difficulty;
@@ -42,23 +39,13 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     private String speed, name;
     private int dropDuration;
 
-    // general
-    private Handler handler = new Handler();
-    private Vibrator vib;
-    private Timer timer;
-    private FirebaseAuth mAuth;
-    private int width, hight;
-
     // View args
     private ImageView playerView;
     private TextView answer1TV, answer2TV, answer3TV, answer4TV, scoreTV, questionTV;
     private Button exitBTN, startBTN;
 
-    // Position args
-    private Animation animation;
     private int playerPosition;
-    private float playerX;
-    private List<Integer> laneOptions = new ArrayList<>();
+    private List<Integer> laneOptions;
 
     // flags
     private boolean start_flg = false;
@@ -74,7 +61,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
         // init
         initViews();
-        gestureDetector = new GestureDetector(GameActivity.this, this);
 
         // setup
         loadStringsExtra();
@@ -166,19 +152,17 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        width = size.x;
-        hight = size.y - findViewById(R.id.framelayout_answers).getLayoutParams().height;
+        int width = size.x;
+        int height = size.y - findViewById(R.id.framelayout_answers).getLayoutParams().height;
 
         laneOptions.add(0);
         laneOptions.add(width / 4);
         laneOptions.add((width / 4) * 2);
         laneOptions.add((width / 4) * 3);
-        vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         playerPosition = 2;
-        playerX = laneOptions.get(playerPosition);
-        playerView.setX(playerX);
-        playerView.setY((hight / 10) * 6);
+        playerView.setX(laneOptions.get(playerPosition));
+        playerView.setY((height / 10) * 6);
 
         exitBTN.setOnClickListener(v -> exitButtonClicked());
         startBTN.setOnClickListener(v -> startButtonClicked());
@@ -251,13 +235,17 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         exitBTN = findViewById(R.id.exitBTN);
         startBTN = findViewById(R.id.startBTN);
 
-        mAuth = FirebaseAuth.getInstance();
+        // general
+        gestureDetector = new GestureDetector(GameActivity.this, this);
+        laneOptions = new ArrayList<Integer>();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         name = mAuth.getCurrentUser().getEmail().split("@")[0];
     }
 
     private void setAnimation() {
         // Set Animation
-        animation = AnimationUtils.loadAnimation(GameActivity.this, R.anim.top_down);
+        // Position args
+        Animation animation = AnimationUtils.loadAnimation(GameActivity.this, R.anim.top_down);
         animation.setDuration(dropDuration);
         //animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -311,7 +299,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
