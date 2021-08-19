@@ -40,7 +40,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupViews() {
         highestScoresBtn.setOnClickListener(v -> openHighestScoresFragment());
-        startGameBtn.setOnClickListener(v-> startGame());
+        startGameBtn.setOnClickListener(v -> startGame());
         logOutBtn.setOnClickListener(v -> logout());
 
         setupUserName();
@@ -88,14 +88,14 @@ public class MenuActivity extends AppCompatActivity {
         DifficultyEnum diff = getDifficultyLevelFromUser();
         String speed = getSpeedFromUser();
         Intent intent = new Intent(MenuActivity.this, GameActivity.class);
-        intent.putExtra(getResources().getString(R.string.diff_tag), ""+diff.name());
+        intent.putExtra(getResources().getString(R.string.diff_tag), "" + diff.name());
         intent.putExtra(getResources().getString(R.string.speed_tag), speed);
         startActivity(intent);
     }
 
     private String getSpeedFromUser() {
         String speed = getResources().getString(R.string.slow_text);
-        switch (speedRG.getCheckedRadioButtonId()){
+        switch (speedRG.getCheckedRadioButtonId()) {
             case R.id.slowRG:
                 speed = getResources().getString(R.string.slow_text);
                 break;
@@ -108,7 +108,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void openHighestScoresFragment() {
         Log.d("fragment btn", "open fragment highest scores");
-        getSupportFragmentManager().beginTransaction().replace(R.id.menu_activity,highScoresFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.menu_activity, highScoresFragment).commit();
         highestScoresBtn.setVisibility(View.INVISIBLE);
         startGameBtn.setVisibility(View.INVISIBLE);
         logOutBtn.setVisibility(View.INVISIBLE);
@@ -118,7 +118,7 @@ public class MenuActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (highScoresFragment == null || highScoresFragment.isRemoving())
             super.onBackPressed();
-        else{
+        else {
             getSupportFragmentManager().beginTransaction().remove(highScoresFragment).commit();
             highestScoresBtn.setVisibility(View.VISIBLE);
             startGameBtn.setVisibility(View.VISIBLE);

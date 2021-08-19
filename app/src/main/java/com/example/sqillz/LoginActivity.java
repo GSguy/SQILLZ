@@ -50,42 +50,42 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         else
             mAuth.signInWithEmailAndPassword(emailET.getText().toString().trim(), passwordET.getText().toString().trim())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(LoginActivity.this, "login ok.",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "login failed.",
-                                    Toast.LENGTH_SHORT).show();
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(LoginActivity.this, "login ok.",
+                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                                startActivity(intent);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(LoginActivity.this, "login failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
 
     }
 
-    public void regFunc(View view){
+    public void regFunc(View view) {
         if (emailET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty())
-            Toast.makeText( LoginActivity.this,"Please fill the lines.",
+            Toast.makeText(LoginActivity.this, "Please fill the lines.",
                     Toast.LENGTH_SHORT).show();
 
         else
-            mAuth.createUserWithEmailAndPassword(emailET.getText().toString().trim(),passwordET.getText().toString().trim())
+            mAuth.createUserWithEmailAndPassword(emailET.getText().toString().trim(), passwordET.getText().toString().trim())
                     .addOnCompleteListener(this, task -> {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText( LoginActivity.this,"REG ok.",
+                            Toast.makeText(LoginActivity.this, "REG ok.",
                                     Toast.LENGTH_SHORT).show();
-                        //    Intent intent = new Intent( LoginActivity.this, ProfileView.class );
-                        //    startActivity( intent );
-                        }else{
+                            //    Intent intent = new Intent( LoginActivity.this, ProfileView.class );
+                            //    startActivity( intent );
+                        } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText( LoginActivity.this,"REG failed.",
+                            Toast.makeText(LoginActivity.this, "REG failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     });

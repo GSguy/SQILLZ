@@ -5,19 +5,13 @@ import android.util.Log;
 import java.util.Random;
 
 public class Question {
-    private static int UUID = 0;
     private String question;
-    private int questionID;
     private int answer;
     private int[] wrong_answers;
-    private DifficultyEnum difficulty;
 
 
-    public Question(String question, DifficultyEnum difficulty, int answer, int[] wrong_answers) {
-        this.questionID = UUID;
-        UUID = UUID + 1;
+    public Question(String question, int answer, int[] wrong_answers) {
         this.question = question;
-        this.difficulty = difficulty;
         this.answer = answer;
         this.wrong_answers = wrong_answers;
     }
@@ -60,11 +54,17 @@ public class Question {
             question = String.format("%d - %d = ?", num1, num2);
         }
         Log.i("plus", String.format("num1 = %d, num2 = %d", num1, num2));
-        do{fakeAnswer1 = rand.nextInt(10) + realAnswer - 5;}while (fakeAnswer1 == realAnswer);
-        do{fakeAnswer2 = rand.nextInt(10) + realAnswer - 5;}while ((fakeAnswer2 == realAnswer) || (fakeAnswer2 == fakeAnswer1));
-        do{fakeAnswer3 = rand.nextInt(10) + realAnswer - 5;}while ((fakeAnswer3 == realAnswer) || (fakeAnswer3 == fakeAnswer1) || (fakeAnswer3 == fakeAnswer2));
+        do {
+            fakeAnswer1 = rand.nextInt(10) + realAnswer - 5;
+        } while (fakeAnswer1 == realAnswer);
+        do {
+            fakeAnswer2 = rand.nextInt(10) + realAnswer - 5;
+        } while ((fakeAnswer2 == realAnswer) || (fakeAnswer2 == fakeAnswer1));
+        do {
+            fakeAnswer3 = rand.nextInt(10) + realAnswer - 5;
+        } while ((fakeAnswer3 == realAnswer) || (fakeAnswer3 == fakeAnswer1) || (fakeAnswer3 == fakeAnswer2));
 
-        return new Question(question, null, realAnswer, new int[]{fakeAnswer1, fakeAnswer2, fakeAnswer3});
+        return new Question(question, realAnswer, new int[]{fakeAnswer1, fakeAnswer2, fakeAnswer3});
     }
 
     public static Question generateMultiDivisionQuestion(int maximumRandomSize, int maxMultiply) {
@@ -92,14 +92,17 @@ public class Question {
             question = String.format("%d : %d = ?", num1, num2);
         }
         Log.i("multi", String.format("num1 = %d, num2 = %d", num1, num2));
-        do{fakeAnswer1 = rand.nextInt(10) + realAnswer - 5;}while (fakeAnswer1 == realAnswer);
-        do{fakeAnswer2 = rand.nextInt(10) + realAnswer - 5;}while ((fakeAnswer2 == realAnswer) || (fakeAnswer2 == fakeAnswer1));
-        do{fakeAnswer3 = rand.nextInt(10) + realAnswer - 5;}while ((fakeAnswer3 == realAnswer) || (fakeAnswer3 == fakeAnswer1) || (fakeAnswer3 == fakeAnswer2));
+        do {
+            fakeAnswer1 = rand.nextInt(10) + realAnswer - 5;
+        } while (fakeAnswer1 == realAnswer);
+        do {
+            fakeAnswer2 = rand.nextInt(10) + realAnswer - 5;
+        } while ((fakeAnswer2 == realAnswer) || (fakeAnswer2 == fakeAnswer1));
+        do {
+            fakeAnswer3 = rand.nextInt(10) + realAnswer - 5;
+        } while ((fakeAnswer3 == realAnswer) || (fakeAnswer3 == fakeAnswer1) || (fakeAnswer3 == fakeAnswer2));
 
-        return new Question(question, null, realAnswer, new int[]{fakeAnswer1, fakeAnswer2, fakeAnswer3});
+        return new Question(question, realAnswer, new int[]{fakeAnswer1, fakeAnswer2, fakeAnswer3});
     }
 
-    public void setDifficulty(DifficultyEnum difficulty) {
-        this.difficulty = difficulty;
-    }
 }

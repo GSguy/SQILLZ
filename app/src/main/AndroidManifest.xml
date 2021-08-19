@@ -5,9 +5,10 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
+        android:testOnly="false"
+        android:icon="@drawable/user_character"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/user_character"
         android:supportsRtl="true"
         android:theme="@style/Theme.SQILLZ">
         <activity android:name=".MenuActivity" />

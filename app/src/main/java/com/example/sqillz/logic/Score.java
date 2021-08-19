@@ -5,7 +5,7 @@ public class Score {
     private String name;
     private int score;
 
-    public Score(int place, String name, int score){
+    public Score(int place, String name, int score) {
         this.place = place;
         this.name = name;
         this.score = score;
@@ -35,9 +35,13 @@ public class Score {
         this.score = score;
     }
 
-    public String getName(){ return this.name; }
+    public String getName() {
+        return this.name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

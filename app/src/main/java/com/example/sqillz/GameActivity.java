@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
-public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener  {
+public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     // Game args
     private static int SLOW_MIN_DROP_SPEED = 3000;
@@ -76,7 +76,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
         // init
         initViews();
-        gestureDetector = new GestureDetector(GameActivity.this,this);
+        gestureDetector = new GestureDetector(GameActivity.this, this);
 
         // setup
         loadStringsExtra();
@@ -85,7 +85,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         setAnswersView();
     }
 
-    private void roundWon(){
+    private void roundWon() {
         game.roundWon();
         if (((dropDuration > SLOW_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.slow_text))))
                 || ((dropDuration > FAST_MIN_DROP_SPEED) && (speed.equals(getResources().getString(R.string.fast_text))))) {
@@ -97,11 +97,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         setAnimation();
     }
 
-    private void gameOver(){
+    private void gameOver() {
         // Move to Score Activity
         Intent myIntent = new Intent(GameActivity.this, ScoreActivity.class);
-        myIntent.putExtra(getResources().getString(R.string.score_tag), ""+game.getScore());
-        myIntent.putExtra(getResources().getString(R.string.username_tag), ""+game.getUser());
+        myIntent.putExtra(getResources().getString(R.string.score_tag), "" + game.getScore());
+        myIntent.putExtra(getResources().getString(R.string.username_tag), "" + name);
         startActivity(myIntent);
 
         // Setup for rerun game
@@ -130,7 +130,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         this.speed = speed;
     }
 
-    public boolean checkAnswer(){
+    public boolean checkAnswer() {
         return isViewOverlapping(playerView, selectedTV);
     }
 
@@ -151,20 +151,20 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         return first_startX >= second_startX && first_startX <= second_endX;
     }
 
-    private void setGame(){
+    private void setGame() {
         boolean isSlow = speed.equals(getResources().getString(R.string.slow_text));
         this.start_flg = false;
-        game = new Game(name, difficulty, isSlow);
+        game = new Game(difficulty, isSlow);
 
         setScoreView();
         this.dropDuration = isSlow ? SLOW_STARTING_SPEED : FAST_STARTING_SPEED;
     }
 
-    private void setScoreView(){
-        scoreTV.setText(String.format("%s %d",getResources().getString(R.string.score_text), game.getScore()));
+    private void setScoreView() {
+        scoreTV.setText(String.format("%s %d", getResources().getString(R.string.score_text), game.getScore()));
     }
 
-    private void setViews(){
+    private void setViews() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -172,15 +172,15 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         hight = size.y - findViewById(R.id.framelayout_answers).getLayoutParams().height;
 
         laneOptions.add(0);
-        laneOptions.add(width/4);
-        laneOptions.add((width/4)*2);
-        laneOptions.add((width/4)*3);
+        laneOptions.add(width / 4);
+        laneOptions.add((width / 4) * 2);
+        laneOptions.add((width / 4) * 3);
         vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         playerPosition = 2;
         playerX = laneOptions.get(playerPosition);
         playerView.setX(playerX);
-        playerView.setY((hight /10)*6);
+        playerView.setY((hight / 10) * 6);
 
         exitBTN.setOnClickListener(v -> exitButtonClicked());
         startBTN.setOnClickListener(v -> startButtonClicked());
@@ -197,14 +197,14 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     private void setNextQuestion() {
         setScoreView();
         Question question = game.getNextQuestion();
-        questionTV.setText(String.format("%s",question.getQuestion()));
+        questionTV.setText(String.format("%s", question.getQuestion()));
 
         setNextAnswers(question.getPosAnswers());
     }
 
-    private void setNextAnswers(int[] answers){
+    private void setNextAnswers(int[] answers) {
         Random rnd = new Random();
-        switch (rnd.nextInt(4)){
+        switch (rnd.nextInt(4)) {
             case 0:
                 answer1TV.setText(Integer.toString(answers[0]));
                 answer2TV.setText(Integer.toString(answers[1]));
@@ -240,7 +240,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         finish();
     }
 
-    private void initViews(){
+    private void initViews() {
         playerView = findViewById(R.id.imageView_player);
         answer1TV = findViewById(R.id.answer1TV);
         answer2TV = findViewById(R.id.answer2TV);
@@ -257,7 +257,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         name = mAuth.getCurrentUser().getEmail().split("@")[0];
     }
 
-    private void setAnimation(){
+    private void setAnimation() {
         // Set Animation
         animation = AnimationUtils.loadAnimation(GameActivity.this, R.anim.top_down);
         animation.setDuration(dropDuration);
@@ -270,11 +270,10 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(checkAnswer()) {
+                if (checkAnswer()) {
                     // Round Won
                     roundWon();
-                }
-                else {
+                } else {
                     // Game Over
                     gameOver();
                 }
@@ -291,7 +290,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         answer4TV.startAnimation(animation);
     }
 
-    public void setAnswersView(){
+    public void setAnswersView() {
         answer1TV.setX(laneOptions.get(0));
         answer1TV.setY(0);
         answer2TV.setX(laneOptions.get(1));
@@ -304,7 +303,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         setVisibility();
     }
 
-    public void setVisibility(){
+    public void setVisibility() {
         answer1TV.setVisibility(View.VISIBLE);
         answer2TV.setVisibility(View.VISIBLE);
         answer3TV.setVisibility(View.VISIBLE);
@@ -313,29 +312,28 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-       gestureDetector.onTouchEvent(event);
+        gestureDetector.onTouchEvent(event);
 
-       switch (event.getAction()){
-           case MotionEvent.ACTION_DOWN:
-               x1 = event.getX();
-               break;
-           case MotionEvent.ACTION_UP:
-               x2 = event.getX();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
 
-               float valueX = x2 - x1;
-               if(Math.abs(valueX) > 100){
-                   if(x2>x1) {
-                       // user swiped right on screen
-                       changePos(false);
-                   }
-                   else {
-                       // user swiped left on screen
-                       changePos(true);
-                   }
-               }
-               break;
-       }
-       return super.onTouchEvent(event);
+                float valueX = x2 - x1;
+                if (Math.abs(valueX) > 100) {
+                    if (x2 > x1) {
+                        // user swiped right on screen
+                        changePos(false);
+                    } else {
+                        // user swiped left on screen
+                        changePos(true);
+                    }
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -371,7 +369,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     public void changePos(boolean swipedLeft) {
         //Move Car
         if (swipedLeft)
-            playerPosition = (playerPosition - 1) % 4;
+            playerPosition = (playerPosition + 3) % 4;
         else
             playerPosition = (playerPosition + 1) % 4;
 

@@ -90,9 +90,8 @@ public class ScoreActivity extends AppCompatActivity {
         this.userScore = Integer.parseInt(score);
     }
 
-    public void checkAndSaveScoreInHighestScoresList()
-    {
-        Score score = new Score(0,username, userScore);
+    public void checkAndSaveScoreInHighestScoresList() {
+        Score score = new Score(0, username, userScore);
 
         userPlace = HighScoresFragment.checkIfIn10BestScoresAndSave(score);
         saveHighestScoresListsToJsonFile();
@@ -104,11 +103,11 @@ public class ScoreActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
 
         Gson gson = new Gson();
-        Type listScoreType = new TypeToken<ArrayList<Score>>() {}.getType();
+        Type listScoreType = new TypeToken<ArrayList<Score>>() {
+        }.getType();
         String scoresListJson = gson.toJson(HighScoresFragment.highestScores, listScoreType);
 
         editor.putString(getString(R.string.Scores_Json_String), scoresListJson);
         editor.apply();
     }
-
 }

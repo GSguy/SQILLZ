@@ -52,7 +52,7 @@ public class HighScoresFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         this.viewReference = inflater.inflate(R.layout.high_scores_fragment, container, false);
-        backBtn  = viewReference.findViewById(R.id.back_btn);
+        backBtn = viewReference.findViewById(R.id.back_btn);
         backBtn.setOnClickListener(v -> closeHighestScoreFragment());
 
         loadHighestScoresFromFile();
@@ -61,7 +61,7 @@ public class HighScoresFragment extends Fragment {
     }
 
     private void closeHighestScoreFragment() {
-        Log.d("highScoresFragment","closeHighestScoreFragment");
+        Log.d("highScoresFragment", "closeHighestScoreFragment");
         getActivity().onBackPressed();
     }
 
@@ -69,16 +69,17 @@ public class HighScoresFragment extends Fragment {
         Log.d("fragment", "loadHighestScoresFromFile");
 
         String filename = getResources().getString(R.string.Scores_Json_File);
-        SharedPreferences sharedPref = contextReference.getSharedPreferences(filename,Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = contextReference.getSharedPreferences(filename, Context.MODE_PRIVATE);
 
         // for reset all highest results: (!!!!!!!)
         // sharedPref.edit().clear().commit();
 
         String jsonFileString = sharedPref.getString(getString(R.string.Scores_Json_String),
                 Utils.getJsonFromAssets(contextReference, "template_scores_json.json"));
-        Log.d("jsonFileString",jsonFileString);
+        Log.d("jsonFileString", jsonFileString);
         Gson gson = new Gson();
-        Type listScoreType = new TypeToken<ArrayList<Score>>() {}.getType();
+        Type listScoreType = new TypeToken<ArrayList<Score>>() {
+        }.getType();
         highestScores = gson.fromJson(jsonFileString, listScoreType);
     }
 
@@ -86,8 +87,7 @@ public class HighScoresFragment extends Fragment {
         int viewId;
         String idName;
         TextView tv;
-        for (int i = 0; i < highestScores.size(); i++)
-        {
+        for (int i = 0; i < highestScores.size(); i++) {
             idName = "row" + highestScores.get(i).getPlace();  //  the text "row"+index is by the id-names in the fragment layout
             viewId = getResources().getIdentifier(idName, "id", contextReference.getPackageName());
             tv = (TextView) viewReference.findViewById(viewId).findViewWithTag("name");
@@ -112,11 +112,11 @@ public class HighScoresFragment extends Fragment {
         highestScores = scores;
     }
 
-    public static int checkIfIn10BestScoresAndSave(Score newScore){
+    public static int checkIfIn10BestScoresAndSave(Score newScore) {
         int i, thePlaceScore = Integer.MAX_VALUE;
 
         // loop for check where insert the newScore
-        for (i = 0; i < highestScores.size() ; i++){
+        for (i = 0; i < highestScores.size(); i++) {
             if (newScore.getScore() > highestScores.get(i).getScore()) {
                 newScore.setPlace(highestScores.get(i).getPlace());
                 thePlaceScore = newScore.getPlace();
@@ -126,13 +126,13 @@ public class HighScoresFragment extends Fragment {
             }
         }
         // loop for update the rest scores's places.
-        for (i=i+1 ; i < highestScores.size() ; i++){
-            highestScores.get(i).setPlace(highestScores.get(i).getPlace()+1);
+        for (i = i + 1; i < highestScores.size(); i++) {
+            highestScores.get(i).setPlace(highestScores.get(i).getPlace() + 1);
         }
         return thePlaceScore;
     }
 
-    public static int getTheHighestScoreNumber (){
+    public static int getTheHighestScoreNumber() {
         return highestScores.get(0).getScore();
     }
 

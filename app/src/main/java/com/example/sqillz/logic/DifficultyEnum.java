@@ -1,16 +1,17 @@
 package com.example.sqillz.logic;
 
 public enum DifficultyEnum {
-        EASY(5),
-        MEDIUM(10),
-        HARD(20);
+    EASY(5),
+    MEDIUM(8),
+    HARD(15);
 
-        private final int value;
-        DifficultyEnum(int value) {
-            this.value = value;
-        }
+    private final int value; // point per question
 
-        public int getValue() {
-            return value;
-        }
+    DifficultyEnum(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }

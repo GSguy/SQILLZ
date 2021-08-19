@@ -47,18 +47,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="@string/place_text" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="@string/name_text" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="@string/score_text" />
 
             </TableRow>
@@ -72,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="1" />
 
                 <TextView
@@ -79,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -86,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -99,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="2" />
 
                 <TextView
@@ -106,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -113,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -126,6 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="3" />
 
                 <TextView
@@ -133,6 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -140,6 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -153,6 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="4" />
 
                 <TextView
@@ -160,6 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -167,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -180,6 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="5" />
 
                 <TextView
@@ -187,6 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -194,6 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -207,6 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="6" />
 
                 <TextView
@@ -214,6 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -221,6 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -234,6 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="7" />
 
                 <TextView
@@ -241,6 +263,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -248,6 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -261,6 +285,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="8" />
 
                 <TextView
@@ -268,6 +293,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -275,6 +301,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -288,6 +315,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="9" />
 
                 <TextView
@@ -295,6 +323,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -302,6 +331,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
@@ -315,6 +345,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="10" />
 
                 <TextView
@@ -322,6 +353,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="name"
+                    android:textColor="@color/black"
                     android:text="-" />
 
                 <TextView
@@ -329,6 +361,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:tag="score"
+                    android:textColor="@color/black"
                     android:text="-" />
 
             </TableRow>
