@@ -28,9 +28,10 @@
 
         <TableLayout
             android:id="@+id/tableHighestScore"
-            android:layout_width="279dp"
-            android:layout_height="344dp"
+            android:layout_width="275dp"
+            android:layout_height="352dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -367,8 +368,8 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="255dp"
-            android:layout_height="77dp"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
             android:layout_marginTop="30dp"
             android:text="@string/highest_scores_text"
             android:textAlignment="center"
