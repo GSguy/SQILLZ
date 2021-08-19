@@ -8,6 +8,17 @@
     android:background="@drawable/background"
     >
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="112dp"
+        android:layout_height="107dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="84dp"
+        android:contentDescription="@string/user_name_text"
+        app:layout_constraintStart_toEndOf="@+id/signupBTN"
+        app:layout_constraintTop_toBottomOf="@+id/passwordET"
+        app:srcCompat="@drawable/user_character" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -65,13 +76,15 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="28dp"
+        android:layout_marginEnd="15dp"
+        android:autofillHints="@string/user_name_text"
         android:ems="10"
-        android:textColor="@color/black"
         android:hint="@string/user_name_text"
         android:inputType="text"
+        android:textColor="@color/black"
         android:textColorHint="#000000"
-        android:autofillHints="@string/user_name_text"
         android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -80,15 +93,17 @@
         android:layout_width="315dp"
         android:layout_height="63dp"
         android:layout_alignParentStart="true"
-        android:textColor="@color/black"
         android:layout_marginStart="15dp"
         android:layout_marginTop="88dp"
+        android:layout_marginEnd="15dp"
+        android:autofillHints="@string/password_text"
         android:ems="10"
         android:hint="@string/password_text"
-        android:autofillHints="@string/password_text"
         android:inputType="textPassword"
+        android:textColor="@color/black"
         android:textColorHint="#000000"
         android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
